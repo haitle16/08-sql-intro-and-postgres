@@ -1,5 +1,7 @@
 'use strict';
 
+const pg = require('pg');
+
 const fs = require('fs');
 const express = require('express');
 
@@ -11,7 +13,7 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-// const conString = 'postgres://localhost:5432/haijames';
+const conString = 'postgres://localhost:5432/';
 
 const client = new pg.Client();
 
@@ -37,7 +39,7 @@ app.get('/new-article', (request, response) => {
 app.get('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // PUT YOUR RESPONSE HERE
-  client.query('')
+  client.query('SELECT * FROM articles')
     .then(function(result) {
       response.send(result.rows);
     })
