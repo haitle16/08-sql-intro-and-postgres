@@ -10,10 +10,10 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
-// const conString = 'postgres://sgtbelly:123456@localhost:5432/sgtbelly';
+const conString = 'postgres://sgtbelly:123456@localhost:5432/sgtbelly';
 
 // Mac:
-const conString = 'postgres://localhost:5432/haijames';
+// const conString = 'postgres://localhost:5432/haijames';
 
 const client = new pg.Client({connectionString: conString});
 
@@ -153,7 +153,7 @@ app.listen(PORT, () => {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // it is just using 3 to query for the results/ Article.fetchAll is being used to gather the information from the database / READ because the server is reading the information in the database.
 
   let SQL = 'SELECT COUNT(*) FROM articles';
   client.query(SQL)
@@ -178,7 +178,7 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  //3 and 4 because you query for information and if the result is that that information is not in the database then you create that information / Article.fetchAll at first and then if the information is not there then it will use Article.prototype.insertRecord / READ and then CREATE if it doesn't exsist
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
