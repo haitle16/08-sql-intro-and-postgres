@@ -7,8 +7,6 @@
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
 Build an app for the user to store articles in a database so that their articles are available fir users from an external source
 
-
-
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 The steps that the user needs to do inorder to use this app is to go to the site and enter the required information
