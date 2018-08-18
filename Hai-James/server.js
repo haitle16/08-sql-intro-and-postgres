@@ -10,10 +10,10 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
-// const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
+const conString = 'postgres://sgtbelly:123456@localhost:5432/sgtbelly';
 
 // Mac:
-const conString = 'postgres://localhost:5432/haijames';
+// const conString = 'postgres://localhost:5432/haijames';
 
 const client = new pg.Client({connectionString: conString});
 
@@ -54,7 +54,7 @@ app.get('/articles', (request, response) => {
 
 app.post('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // this line of code is using 2, 3, 4, and 5; the user is creating information within a query (2) then the server catches the information from the model(3) and sends the result of the query back to the server (4) which the server sends to the user (5)/ Article.prototype.insertRecord is being utilized in this since the server is calling back the information to the user/ CREATE is being used because you are creating a new article for the server.
   let SQL = `
     INSERT INTO articles(title, author, author_url, category, published_on, body)
     VALUES ($1, $2, $3, $4, $5, $6);
@@ -81,7 +81,7 @@ app.post('/articles', (request, response) => {
 
 app.put('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // 2,3,4,5 2 because you are requesting information from the model and updating the information in the model and sending back the result/ Article.prototype.updateRecord because you are updating the records in the database/ UPDATE is being used.
 
   let SQL = 'UPDATE articles SET title = $2, author = $3, author_url = $4, category = $5, published_on = $6, body = $7 WHERE article_id = $1';
   let values = [
@@ -125,7 +125,7 @@ app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // PUT YOUR RESPONSE HERE
 
-  let SQL = '';
+  let SQL = 'DELETE FROM articles';
   client.query(SQL)
     .then(() => {
       response.send('Delete complete')
