@@ -10,10 +10,10 @@ const app = express();
 
 // Windows and Linux users: You should have retained the user/password from the pre-work for this course.
 // Your OS may require that your conString is composed of additional information including user and password.
-const conString = 'postgres://sgtbelly:123456@localhost:5432/sgtbelly';
+// const conString = 'postgres://sgtbelly:123456@localhost:5432/sgtbelly';
 
 // Mac:
-// const conString = 'postgres://localhost:5432/haijames';
+const conString = 'postgres://localhost:5432/haijames';
 
 const client = new pg.Client({connectionString: conString});
 
@@ -30,7 +30,7 @@ app.use(express.static('./public'));
 // REVIEW: Routes for requesting HTML resources
 app.get('/new-article', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js, if any, is interacting with this particular piece of `server.js`? What part of CRUD, if any, is being enacted/managed by this particular piece of code?
-  // The following line of code correspond to ( 2 and 5), sending request to new-article and reponse with the specific route to the new.html page.
+  // The following line of code correspond to steps ( 2 and 5), sending request to new-article and reponse with the specific route to the new.html page.
   // In CRUD this part is READ.
   response.sendFile('new.html', { root: './public' });
 });
@@ -106,7 +106,9 @@ app.put('/articles/:id', (request, response) => {
 
 app.delete('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+  // The following lines of code corresponse to steps (2, 3, 4, 5). User request to delete an id (row) from the databse, and querying command `DELETE FROM articles WHERE article_id=$1` to delete a given article_id. and send back result and reponse 'Delete complete'.
+  // In article.js the method is interacting with this piece of code is Article.prototype.deleteRecord
+  // In CRUD this part is Delete.
 
   let SQL = `DELETE FROM articles WHERE article_id=$1;`;
   let values = [request.params.id];
@@ -123,7 +125,9 @@ app.delete('/articles/:id', (request, response) => {
 
 app.delete('/articles', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // PUT YOUR RESPONSE HERE
+ // The following lines of code correspond to steps (2, 3, 4, 5), User is requesting to delete the article table, and querying the command to the database to 'DELETE FROM articles'. and sending results and response back to the user as 'Delete complete'
+  // The method of article.js is interacting with this piece of code is Article.truncateTable
+  // In CRUD this part is Delete.
 
   let SQL = 'DELETE FROM articles';
   client.query(SQL)
@@ -137,7 +141,7 @@ app.delete('/articles', (request, response) => {
 });
 
 // COMMENT: What is this function invocation doing?
-// PUT YOUR RESPONSE HERE
+// This function is calling the loadDB() to create the article table if it's doesnt exist, and run loadAricles() function if "promised" everything runs like it supposed to.
 loadDB();
 
 app.listen(PORT, () => {
